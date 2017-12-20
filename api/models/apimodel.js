@@ -4,15 +4,23 @@ var Schema = mongoose.Schema;
 
 
 var apiSchema = new Schema({
-  name: {
+  email: {
     type: String,
-    required: 'Enter your name'
+    required: 'Enter email'
   },
-  Created_date: {
-    type: Date,
-    default: Date.now
+  first_name:{
+    type: String,
+    required: 'Enter first name'
   },
-  pwd: {
+  last_name:{
+    type: String,
+    required: 'Enter last name'
+  },
+  personal_phone:{
+    type: String,
+    required: 'Enter phone number'
+  },
+  password: {
     type: String,
     required: 'Enter your password'
   }

@@ -2,10 +2,10 @@
 
 
 var mongoose = require('mongoose'),
-  Task = mongoose.model('Users');
+  User = mongoose.model('Users');
 
 exports.list_all_users = function(req, res) {
-  Task.find({}, function(err, user) {
+  User.find({}, function(err, user) {
     if (err)
       res.send(err);
     res.json(user);
@@ -14,7 +14,7 @@ exports.list_all_users = function(req, res) {
 
 
 exports.create_user = function(req, res) {
-  var new_user = new Task(req.body);
+  var new_user = new User(req.body);
   new_user.save(function(err, user) {
     if (err)
       res.send(err);
@@ -24,7 +24,7 @@ exports.create_user = function(req, res) {
 
 
 exports.read_user = function(req, res) {
-  Task.findById(req.params.userId, function(err, user) {
+  User.findById(req.params.userId, function(err, user) {
     if (err)
       res.send(err);
     res.json(user);
@@ -33,7 +33,7 @@ exports.read_user = function(req, res) {
 
 
 exports.update_user = function(req, res) {
-  Task.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err, user) {
+  User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err, user) {
     if (err)
       res.send(err);
     res.json(user);
@@ -44,12 +44,12 @@ exports.update_user = function(req, res) {
 exports.delete_user = function(req, res) {
 
 
-  Task.remove({
+  User.remove({
     _id: req.params.userId
   }, function(err, user) {
     if (err)
       res.send(err);
-    res.json({ message: 'Task successfully deleted' });
+    res.json({ message: 'User successfully deleted' });
   });
 };
 
