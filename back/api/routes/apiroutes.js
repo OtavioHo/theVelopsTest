@@ -16,6 +16,6 @@ module.exports = function(app) {
   app.route('/users/verify/:email')
   	.get(theVelops.verify);
 
-  app.route('/populate')
+  app.route('/populate/:n')
     .get(theVelops.populate);
 };

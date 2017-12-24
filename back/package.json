@@ -4,7 +4,9 @@
   "description": "thevelops api test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "test": "eslint . && jest tests/",
+  "lint": "eslint .",
+  "lint:fix": "eslint . --fix"
   },
   "author": "otavio ho aragoni",
   "license": "ISC",

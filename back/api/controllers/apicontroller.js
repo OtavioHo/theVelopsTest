@@ -53,7 +53,7 @@ exports.delete_user = function(req, res) {
   });
 };
 
-
+//search by email
 exports.verify = function(req, res) {
   User.find({email: req.params.email}, function(err, user) {
     if (err)
@@ -62,12 +62,17 @@ exports.verify = function(req, res) {
   });
 }
 
+//populate DB
 exports.populate = function (req, res) {
-  var new_user = new User({"email": faker.internet.email(),
-                  "first_name": faker.name.firstName(),
-                  "last_name": faker.name.lastName(),
-                  "personal_phone": faker.phone.phoneNumber(),
-                  "password": faker.internet.password()});
-  new_user.save();
+  if (req.params.n > 0){
+    var new_user = new User({"email": faker.internet.email(),
+                    "first_name": faker.name.firstName(),
+                    "last_name": faker.name.lastName(),
+                    "personal_phone": faker.phone.phoneNumber(),
+                    "password": faker.internet.password()});
+    new_user.save(function(err, user) {
+      res.redirect('/populate/' + (req.params.n - 1));
+    });
+  }
 }
 
