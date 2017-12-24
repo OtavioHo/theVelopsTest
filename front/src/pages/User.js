@@ -42,7 +42,9 @@ class User extends React.Component {
         </div>
         <br/>
         <div>
-          <Link to="/signup"><button>Sign Up</button></Link>
+          <Link to={"/edit/" + this.state.id}><button>Edit User</button></Link><br/><br/>
+          <Link to={"/password/" + this.state.id}><button>Change Password</button></Link><br/><br/>
+          <Link to="/"><button>Logout</button></Link>
         </div>
       </div>
     );

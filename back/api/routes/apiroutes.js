@@ -12,4 +12,7 @@ module.exports = function(app) {
     .get(theVelops.read_user)
     .put(theVelops.update_user)
     .delete(theVelops.delete_user);
+
+  app.route('/users/verify/:email')
+  	.get(theVelops.verify);
 };

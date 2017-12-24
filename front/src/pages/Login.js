@@ -21,12 +21,14 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.email + '| password: ' +this.state.password);
-    event.preventDefault();
-    axios.get('http://localhost:8080/users')
+    axios.get('http://localhost:8080/users/verify/' + this.state.email)
       .then(res => {
         console.log(res);
-        alert(res.data.body);
+        if (res.data[0].password === this.state.password) {
+          this.props.history.push('/user/' + res.data[0]._id);
+        } else {
+          alert('Wrong password or email');
+        }
       });
   }
 
@@ -37,17 +39,15 @@ class Login extends React.Component {
           <h3>Login</h3>
         </div>
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <input type="text" placeholder="email" value={this.state.email} onChange={this.handleEmailChange} /><br/><br/>
             <input type="password" placeholder="password" value={this.state.password} onChange={this.handlePwdChange} />
             <br/><br/>
-            <input type="submit" value="Sign In" />
           </form>
         </div>
-        <br/>
-        <div>
-          <Link to="/signup"><button>Sign Up</button></Link>
-        </div>
+        <button onClick={this.handleSubmit}>Login</button>
+        <br/><br/>
+        <Link to="/signup"><button>Sign Up</button></Link>
       </div>
     );
   }

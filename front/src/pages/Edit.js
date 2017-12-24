@@ -1,16 +1,16 @@
 import React from 'react'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
-class Signup extends React.Component {
+class Edit extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {email: '',password: '', phone: '', first_name: '', last_name: '', res: ''};
+    this.state = {id: props.match.params.id ,email: '', phone: '', first_name: '', last_name: '', res: ''};
 
     this.handleFNameChange = this.handleFNameChange.bind(this);
     this.handleLNameChange = this.handleLNameChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePwdChange = this.handlePwdChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -30,20 +30,20 @@ class Signup extends React.Component {
     this.setState({email: event.target.value});
   }
 
-  handlePwdChange(event) {
-    this.setState({password: event.target.value});
-  }
-
   handleSubmit(event) {
-  	var user = {"email": this.state.email,
-        				"first_name": this.state.first_name,
-        				"last_name": this.state.last_name,
-        				"personal_phone": this.state.phone,
-        				"password": this.state.password};
+  	var user = {};
 
-    axios.post('http://localhost:8080/users', user)
+    if (this.state.email) user["email"] = this.state.email;
+    if (this.state.first_name) user["first_name"] = this.state.first_name;
+    if (this.state.last_name) user["last_name"] = this.state.last_name;
+    if (this.state.phone) user["personal_phone"] = this.state.phone;
+
+    console.log(this.state);
+
+    axios.put(('http://localhost:8080/users/' + this.state.id), user)
 	  .then(res => {
-      this.props.history.push("/user/" + res.data._id);
+      console.log(res);
+      this.props.history.push('/user/' + this.state.id);
 	  })
 	  .catch(error => {
 	    console.log(error);
@@ -54,18 +54,18 @@ class Signup extends React.Component {
     return (
       <div>
         <div>
-          <h3>Create User</h3>
+          <h3>Edit User</h3>
         </div>
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form>
           	<input type="text" placeholder="email" value={this.state.email} onChange={this.handleEmailChange} /><br/><br/>
           	<input type="text" placeholder="first name" value={this.state.first_name} onChange={this.handleFNameChange} /><br/><br/>
           	<input type="text" placeholder="last name" value={this.state.last_name} onChange={this.handleLNameChange} /><br/><br/>
             <input type="text" placeholder="phone number" value={this.state.phone} onChange={this.handlePhoneChange} /><br/><br/>
-            <input type="password" placeholder="password" value={this.state.password} onChange={this.handlePwdChange} />
-            <br/><br/>
-            <input type="submit" value="Sign In" />
           </form>
+          <button onClick={this.handleSubmit}>Submit</button>
+          <br/><br/>
+          <Link to={'/user/' + this.state.id}><button>Cancel</button></Link>
         </div>
       </div>
     );
@@ -73,4 +73,4 @@ class Signup extends React.Component {
 }
 
 
-export default Signup
+export default Edit
