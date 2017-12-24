@@ -4,6 +4,8 @@
 var mongoose = require('mongoose'),
   User = mongoose.model('Users');
 
+var faker = require('faker');
+
 exports.list_all_users = function(req, res) {
   User.find({}, function(err, user) {
     if (err)
@@ -58,5 +60,14 @@ exports.verify = function(req, res) {
       res.send(err);
     res.json(user);
   });
+}
+
+exports.populate = function (req, res) {
+  var new_user = new User({"email": faker.internet.email(),
+                  "first_name": faker.name.firstName(),
+                  "last_name": faker.name.lastName(),
+                  "personal_phone": faker.phone.phoneNumber(),
+                  "password": faker.internet.password()});
+  new_user.save();
 }
 

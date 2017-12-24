@@ -11,6 +11,7 @@ class Edit extends React.Component {
     this.handleLNameChange = this.handleLNameChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -50,6 +51,13 @@ class Edit extends React.Component {
 	  });
   }
 
+  handleDelete(event) {
+    axios.delete('http://localhost:8080/users/' + this.state.id)
+    .then(res => {
+      this.props.history.push('/');
+    });
+  }
+
   render() {
     return (
       <div>
@@ -65,6 +73,7 @@ class Edit extends React.Component {
           </form>
           <button onClick={this.handleSubmit}>Submit</button>
           <br/><br/>
+          <button onClick={this.handleDelete}>Delete</button><br/><br/>
           <Link to={'/user/' + this.state.id}><button>Cancel</button></Link>
         </div>
       </div>
