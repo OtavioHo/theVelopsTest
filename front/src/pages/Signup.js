@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import bcrypt from 'bcrypt-nodejs'
 
 class Signup extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class Signup extends React.Component {
         				"first_name": this.state.first_name,
         				"last_name": this.state.last_name,
         				"personal_phone": this.state.phone,
-        				"password": this.state.password};
+        				"password": bcrypt.hashSync(this.state.password)};
 
     axios.post('http://localhost:8080/users', user)
 	  .then(res => {
@@ -57,15 +58,15 @@ class Signup extends React.Component {
           <h3>Create User</h3>
         </div>
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form>
           	<input type="text" placeholder="email" value={this.state.email} onChange={this.handleEmailChange} /><br/><br/>
           	<input type="text" placeholder="first name" value={this.state.first_name} onChange={this.handleFNameChange} /><br/><br/>
           	<input type="text" placeholder="last name" value={this.state.last_name} onChange={this.handleLNameChange} /><br/><br/>
             <input type="text" placeholder="phone number" value={this.state.phone} onChange={this.handlePhoneChange} /><br/><br/>
             <input type="password" placeholder="password" value={this.state.password} onChange={this.handlePwdChange} />
             <br/><br/>
-            <input type="submit" value="Sign In" />
           </form>
+          <button onClick={this.handleSubmit}> Sign In </button>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import bcrypt from 'bcrypt-nodejs'
 
 class Login extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Login extends React.Component {
     axios.get('http://localhost:8080/users/verify/' + this.state.email)
       .then(res => {
         console.log(res);
-        if (res.data[0].password === this.state.password) {
+        if (bcrypt.compareSync(this.state.password,res.data[0].password)) {
           this.props.history.push('/user/' + res.data[0]._id);
         } else {
           alert('Wrong password or email');

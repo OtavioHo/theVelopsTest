@@ -73,6 +73,12 @@ exports.populate = function (req, res) {
     new_user.save(function(err, user) {
       res.redirect('/populate/' + (req.params.n - 1));
     });
+  } else {
+    User.find({}, function(err, user) {
+    if (err)
+      res.send(err);
+    res.json(user);
+    });
   }
 }
 
