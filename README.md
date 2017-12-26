@@ -8,12 +8,12 @@
 - clone the repository
 - in your terminal navigate to /back
 - execute 'npm install' to install the package dependencies
-- execute 'npm run start' to put your server up on port AAAA
+- execute 'npm run start' to put your server up on port 8080
 - in another terminal navigate to /front
 - execute 'yarn install' to install the package dependencies
-- execute 'yarn start'so your app will run at port ----
-- to populate your DB just access in your browser 'localhost:AAAA/populate/{n}', n is the number of users you want to add in your DB
-- access 'localhost:----' to access your app
+- execute 'yarn start'so your app will run at port 8000
+- to populate your DB just access in your browser 'localhost:8080/populate/{n}', n is the number of users you want to add in your DB
+- access 'localhost:8000' to access your app
     
 ### API routes:
 - '/users':
